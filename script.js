@@ -40,23 +40,41 @@ function showScore(playerWins, computerWins) {
     computerScore.textContent = `Computer: ${computerWins}`;
 }
 
+function finalResult(playerWins, computerWins) {
+    if (playerWins === 5) {
+        return "Congratulations! You reached 5 points!";
+    } else if (computerWins === 5) {
+        return "You lost! The computer reached 5 points!";
+    }
+}
+
 let playerSelection,
     computerSelection,
     roundResult,
     playerWins = 0,
     computerWins = 0;
+const result = document.querySelector('#final-result');
 
 showScore(playerWins, computerWins);
 
 document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', () => {
+        result.textContent = '';
         computerSelection = computerPlay();
         playerSelection = button.textContent;
         roundResult = playRound(playerSelection, computerSelection);
+
         if (roundResult === 1) playerWins++;
         else if (roundResult === -1) computerWins++;
+
         showResult(roundResult);
         showScore(playerWins, computerWins);
+
+        if ((playerWins === 5) || (computerWins === 5)) {
+            result.textContent = finalResult(playerWins, computerWins);
+            playerWins = 0;
+            computerWins = 0;
+        }
     })
 })
 

@@ -46,6 +46,8 @@ let playerSelection,
     playerWins = 0,
     computerWins = 0;
 
+showScore(playerWins, computerWins);
+
 document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', () => {
         computerSelection = computerPlay();
